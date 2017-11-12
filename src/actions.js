@@ -1,27 +1,27 @@
-let nextTodoId = 0;
+import { Todo } from "./models";
 
-export const ADD_TODO = 'ADD_TODO';
-export const TOGGLE_TODO = 'TOGGLE_TODO';
-export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
-
-export const addTodo = text => {
-  return {
-    type: ADD_TODO,
-    id: nextTodoId++,
-    text
-  }
+export const actionTypes = {
+  ADD_TODO: 'ADD_TODO',
+  TOGGLE_TODO: 'TOGGLE_TODO',
 };
 
-export const setVisibilityFilter = filter => {
-  return {
-    type: SET_VISIBILITY_FILTER,
-    filter
-  }
-};
+const uid = () => Math.random().toString(34).slice(2);
 
-export const toggleTodo = id => {
-  return {
-    type: TOGGLE_TODO,
-    id
-  }
-};
+export default {
+  addTodo: (text) => {
+    return {
+      type: actionTypes.ADD_TODO,
+      todo: new Todo({
+        id: uid(),
+        isDone: false,
+        text: text,
+      }),
+    }
+  },
+  toggleTodo: (id) => {
+    return {
+      type: actionTypes.TOGGLE_TODO,
+      id
+    }
+  },
+}

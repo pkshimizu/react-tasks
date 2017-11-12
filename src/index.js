@@ -1,15 +1,19 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import todoApp from './reducers/todos'
-import App from './components/App'
+import TodoList from './containers/TodoList'
 
-let store = createStore(todoApp)
+import { createStore } from 'redux';
+import reducer from './reducers';
+import { Provider } from "react-redux";
+
+import './App.css'
+
+const store = createStore(reducer);
+
 
 render(
   <Provider store={store}>
-    <App />
+    <TodoList/>
   </Provider>,
   document.getElementById('root')
 );

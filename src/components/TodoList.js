@@ -1,24 +1,37 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Todo from './Todo'
+import React, { Component } from 'react';
+import TodoItem from '../containers/TodoItem'
 
-const TodoList = ({ todos, onTodoClick }) => (
-  <ul>
-    {todos.map(todo => (
-      <Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo.id)} />
-    ))}
-  </ul>
-);
+export default class TodoList extends Component {
+  render() {
+    const { todos } = this.props;
 
-TodoList.propTypes = {
-  todos: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      completed: PropTypes.bool.isRequired,
-      text: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired,
-  onTodoClick: PropTypes.func.isRequired
-};
+    const onSubmit = (event) => {
+      const input = event.target;
+      const text = input.value;
+      const isEnterKey = (event.which === 13);
+      const isLongEnough = text.length > 0;
 
-export default TodoList;
+      if(isEnterKey && isLongEnough) {
+        input.value = '';
+        this.props.addTodo(text);
+      }
+    };
+
+    return (
+      <div className='todo'>
+        <input
+          type='text'
+          placeholder='Add todo'
+          onKeyDown={onSubmit}
+        />
+        <ul className='todo__list'>
+          {todos.map(todo => {
+            return (
+              <TodoItem key={todo.getId()} todo={todo} />
+            )
+          })}
+        </ul>
+      </div>
+    );
+  }
+}

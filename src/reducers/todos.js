@@ -1,25 +1,23 @@
-import {ADD_TODO, TOGGLE_TODO} from "../actions";
+import { List, Map } from 'immutable'
+import { actionTypes } from '../actions';
 
-const todos = (state = [], action) => {
-  switch (action.type) {
-    case ADD_TODO:
-      return [
-        ...state,
-        {
-          id: action.id,
-          text: action.text,
-          completed: false
+const initState = Map({
+  todos: List([])
+});
+
+export default function(state = initState, action) {
+  switch(action.type) {
+    case actionTypes.ADD_TODO:
+      return state.set('todos', state.get('todos').push(action.todo));
+    case actionTypes.TOGGLE_TODO:
+      return state.set('todos', state.get('todos').map(todo => {
+        if(todo.get('id') === action.id) {
+          return todo.toggleDone();
+        } else {
+          return todo;
         }
-      ];
-    case TOGGLE_TODO:
-      return state.map(todo =>
-        (todo.id === action.id)
-          ? {...todo, completed: !todo.completed}
-          : todo
-      );
+      }));
     default:
-      return state
+      return state;
   }
-};
-
-export default todos
+}
