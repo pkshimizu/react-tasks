@@ -3,12 +3,12 @@ import { render } from 'react-dom'
 import TodoList from './containers/TodoList'
 
 import { createStore } from 'redux';
-import reducer from './reducers';
+import reducers from './reducers';
 import { Provider } from "react-redux";
 
 import './App.css'
 
-const store = createStore(reducer);
+const store = createStore(reducers);
 
 
 render(

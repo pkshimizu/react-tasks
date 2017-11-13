@@ -4,7 +4,7 @@ import actions from '../actions';
 
 export default connect(
   function mapStateToProps(state) {
-    return {todos: state.get('todos')};
+    return {todos: state.todo.get('todos')};
   },
   function mapDispatchToProps(dispatch) {
     return {

@@ -1,3 +1,8 @@
-import todos from './todos';
+import { combineReducers } from 'redux';
+import todo from './todo';
 
-export default todos;
+const reducers = combineReducers({
+  todo,
+});
+
+export default reducers;
